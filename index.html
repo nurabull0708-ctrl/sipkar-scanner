@@ -565,77 +565,37 @@
 
   async function ambilDataSiswa(qrId) {
 
-    try {
+  try {
 
-      pesan.innerText =
-        "Mengambil data siswa...";
+    pesan.innerText =
+      "Membuka data siswa...";
 
-      const url =
-        APPS_SCRIPT_URL +
-        "?qr=" +
-        encodeURIComponent(qrId);
+    const url =
+      APPS_SCRIPT_URL +
+      "?qr=" +
+      encodeURIComponent(qrId);
 
-      const response =
-        await fetch(url);
+    /*
+      Apps Script tidak bisa di-fetch langsung
+      dari GitHub Pages karena pembatasan CORS.
 
-      const siswa =
-        await response.json();
+      Untuk sementara kita buka URL Apps Script
+      secara langsung. Apps Script sudah terbukti
+      mengembalikan data siswa dengan benar.
+    */
 
-      if (!siswa.ditemukan) {
+    window.location.href = url;
 
-        pesan.innerText =
-          "❌ Siswa tidak ditemukan.";
+  } catch (error) {
 
-        return;
+    console.error(error);
 
-      }
-
-
-      siswaAktif = siswa;
-
-
-      // Tampilkan data
-
-      document.getElementById("nama").innerText =
-        siswa.nama;
-
-      document.getElementById("idSiswa").innerText =
-        "ID Siswa: " + siswa.idSiswa;
-
-      document.getElementById("kelas").innerText =
-        "Kelas: " + siswa.kelas;
-
-      document.getElementById("poin").innerText =
-        siswa.poin;
-
-
-      // Tampilkan bagian siswa
-
-      bagianScanner.style.display =
-        "none";
-
-      dataSiswa.style.display =
-        "block";
-
-      formPoin.style.display =
-        "block";
-
-
-      // Reset form
-
-      resetForm();
-
-
-    } catch (error) {
-
-      console.error(error);
-
-      pesan.innerText =
-        "❌ Gagal mengambil data siswa.";
-
-    }
+    pesan.innerText =
+      "❌ Gagal membuka data siswa.";
 
   }
+
+}
 
 
   // =====================================================
