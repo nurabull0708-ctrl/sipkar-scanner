@@ -639,84 +639,120 @@
 
 
   // =====================================================
-  // PILIH JENIS
-  // =====================================================
+// PILIH JENIS
+// =====================================================
 
-  async function pilihJenis(jenis) {
+function pilihJenis(jenis) {
 
-    jenisAktif = jenis;
+  jenisAktif = jenis;
+
+  const btnPositif =
+    document.getElementById("btnPositif");
+
+  const btnNegatif =
+    document.getElementById("btnNegatif");
 
 
-    const btnPositif =
-      document.getElementById("btnPositif");
+  // Reset tombol
+  btnPositif.classList.remove(
+    "aktif-positif"
+  );
 
-    const btnNegatif =
-      document.getElementById("btnNegatif");
+  btnNegatif.classList.remove(
+    "aktif-negatif"
+  );
 
 
-    btnPositif.classList.remove(
+  // Aktifkan tombol yang dipilih
+  if (jenis === "Positif") {
+
+    btnPositif.classList.add(
       "aktif-positif"
     );
 
-    btnNegatif.classList.remove(
+  } else {
+
+    btnNegatif.classList.add(
       "aktif-negatif"
     );
 
-
-    if (jenis === "Positif") {
-
-      btnPositif.classList.add(
-        "aktif-positif"
-      );
-
-    } else {
-
-      btnNegatif.classList.add(
-        "aktif-negatif"
-      );
-
-    }
+  }
 
 
-    kategori.innerHTML =
-      '<option value="">Memuat kategori...</option>';
+  // Tampilkan status memuat
+  kategori.innerHTML =
+    '<option value="">Memuat kategori...</option>';
 
-    poinSelect.innerHTML =
-      '<option value="">Pilih poin</option>';
+  poinSelect.innerHTML =
+    '<option value="">Pilih poin</option>';
 
-    nilai.innerText =
-      "-";
+  nilai.innerText =
+    "-";
 
-
-    try {
-
-      const url =
-        APPS_SCRIPT_URL +
-        "?action=poin&jenis=" +
-        encodeURIComponent(jenis);
+  btnSimpan.disabled = true;
 
 
-      const response =
-        await fetch(url);
+  // =====================================================
+  // CALLBACK JSONP
+  // =====================================================
+
+  const namaCallback =
+    "callbackPoin_" + Date.now();
 
 
-      semuaPoin =
-        await response.json();
+  window[namaCallback] =
+    function(data) {
+
+      // Hapus callback setelah selesai
+      delete window[namaCallback];
 
 
+      // Simpan semua poin
+      semuaPoin = data;
+
+
+      // Isi kategori
       isiKategori();
 
+    };
 
-    } catch (error) {
 
-      console.error(error);
+  // =====================================================
+  // BUAT SCRIPT JSONP
+  // =====================================================
+
+  const script =
+    document.createElement("script");
+
+
+  script.src =
+    APPS_SCRIPT_URL +
+    "?action=poin&jenis=" +
+    encodeURIComponent(jenis) +
+    "&callback=" +
+    namaCallback;
+
+
+  script.onerror =
+    function() {
+
+      delete window[namaCallback];
 
       kategori.innerHTML =
         '<option value="">Gagal memuat kategori</option>';
 
-    }
+      poinSelect.innerHTML =
+        '<option value="">Pilih poin</option>';
 
-  }
+      nilai.innerText =
+        "-";
+
+    };
+
+
+  document.body.appendChild(script);
+
+}
 
 
   // =====================================================
