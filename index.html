@@ -408,159 +408,7 @@ function logout() {
 
 <body>
 
-  // =====================================================
-// CEK LOGIN SAAT HALAMAN DIBUKA
-// =====================================================
-
-function cekLogin() {
-
-  const data =
-    localStorage.getItem(
-      "sipkar_pengguna"
-    );
-
-
-  if (!data) {
-
-    document.getElementById("halamanLogin")
-      .style.display = "block";
-
-    document.getElementById("bagianScanner")
-      .style.display = "none";
-
-    dataSiswa.style.display = "none";
-
-    formPoin.style.display = "none";
-
-    return;
-  }
-
-
-  try {
-
-    penggunaAktif =
-      JSON.parse(data);
-
-
-    if (
-      !penggunaAktif.idUser ||
-      !penggunaAktif.username
-    ) {
-
-      throw new Error(
-        "Data login tidak lengkap."
-      );
-
-    }
-
-
-    masukKeSIPKAR();
-
-  } catch (error) {
-
-    console.error(error);
-
-    localStorage.removeItem(
-      "sipkar_pengguna"
-    );
-
-    location.reload();
-
-  }
-
-}
-
-
-cekLogin();
-
-
-  <!-- =========================
-       HEADER
-       ========================= -->
-
-  <div class="header">
-
-    <h1>📋 SIPKAR</h1>
-
-    <p>
-      Sistem Informasi Poin Kedisiplinan dan Karakter
-    </p>
-
-  </div>
-
-
-  <div class="container">
-
-    <!-- =========================
-     HALAMAN LOGIN
-     ========================= -->
-
-<div id="halamanLogin">
-
-  <div class="card">
-
-    <div class="login-icon">
-      🔐
-    </div>
-
-    <div class="login-title">
-      Login Guru
-    </div>
-
-    <div class="login-subtitle">
-      Masuk untuk menggunakan SIPKAR
-    </div>
-
-    <div class="login-field">
-
-      <label>
-        Username
-      </label>
-
-      <input
-        type="text"
-        id="usernameLogin"
-        placeholder="Masukkan username"
-        autocomplete="username"
-      >
-
-    </div>
-
-    <div class="login-field">
-
-      <label>
-        Password
-      </label>
-
-      <input
-        type="password"
-        id="passwordLogin"
-        placeholder="Masukkan password"
-        autocomplete="current-password"
-      >
-
-    </div>
-
-    <button
-      id="btnLogin"
-      class="btn-login"
-      onclick="login()"
-    >
-      🔐 MASUK
-    </button>
-
-    <div
-      id="pesanLogin"
-      class="login-pesan">
-    </div>
-
-  </div>
-
-</div>
-
-    <div class="card">
-
-      
+       
       <!-- =========================
            SCANNER
            ========================= -->
@@ -788,6 +636,158 @@ cekLogin();
   const APPS_SCRIPT_URL =
     "https://script.google.com/a/macros/guru.sd.belajar.id/s/AKfycbwzXoGGI6P1aRvAVVVVfvF6lHmTPgyk8gsjMl1irmWdCqsVY7FkcIL5wBRD1xXU3lOk/exec";
 
+  // =====================================================
+// CEK LOGIN SAAT HALAMAN DIBUKA
+// =====================================================
+
+function cekLogin() {
+
+  const data =
+    localStorage.getItem(
+      "sipkar_pengguna"
+    );
+
+
+  if (!data) {
+
+    document.getElementById("halamanLogin")
+      .style.display = "block";
+
+    document.getElementById("bagianScanner")
+      .style.display = "none";
+
+    dataSiswa.style.display = "none";
+
+    formPoin.style.display = "none";
+
+    return;
+  }
+
+
+  try {
+
+    penggunaAktif =
+      JSON.parse(data);
+
+
+    if (
+      !penggunaAktif.idUser ||
+      !penggunaAktif.username
+    ) {
+
+      throw new Error(
+        "Data login tidak lengkap."
+      );
+
+    }
+
+
+    masukKeSIPKAR();
+
+  } catch (error) {
+
+    console.error(error);
+
+    localStorage.removeItem(
+      "sipkar_pengguna"
+    );
+
+    location.reload();
+
+  }
+
+}
+
+
+cekLogin();
+
+
+  <!-- =========================
+       HEADER
+       ========================= -->
+
+  <div class="header">
+
+    <h1>📋 SIPKAR</h1>
+
+    <p>
+      Sistem Informasi Poin Kedisiplinan dan Karakter
+    </p>
+
+  </div>
+
+
+  <div class="container">
+
+    <!-- =========================
+     HALAMAN LOGIN
+     ========================= -->
+
+<div id="halamanLogin">
+
+  <div class="card">
+
+    <div class="login-icon">
+      🔐
+    </div>
+
+    <div class="login-title">
+      Login Guru
+    </div>
+
+    <div class="login-subtitle">
+      Masuk untuk menggunakan SIPKAR
+    </div>
+
+    <div class="login-field">
+
+      <label>
+        Username
+      </label>
+
+      <input
+        type="text"
+        id="usernameLogin"
+        placeholder="Masukkan username"
+        autocomplete="username"
+      >
+
+    </div>
+
+    <div class="login-field">
+
+      <label>
+        Password
+      </label>
+
+      <input
+        type="password"
+        id="passwordLogin"
+        placeholder="Masukkan password"
+        autocomplete="current-password"
+      >
+
+    </div>
+
+    <button
+      id="btnLogin"
+      class="btn-login"
+      onclick="login()"
+    >
+      🔐 MASUK
+    </button>
+
+    <div
+      id="pesanLogin"
+      class="login-pesan">
+    </div>
+
+  </div>
+
+</div>
+
+    <div class="card">
+  
 // =====================================================
 // LOGIN GURU
 // =====================================================
