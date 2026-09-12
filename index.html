@@ -946,13 +946,142 @@ function pilihJenis(jenis) {
   // SIMPAN
   // =====================================================
 
-  function simpan() {
+  // =====================================================
+// SIMPAN POIN
+// =====================================================
 
-    alert(
-      "Fitur simpan akan kita aktifkan pada tahap berikutnya."
-    );
+function simpan() {
 
+  // Pastikan ada siswa
+  if (!siswaAktif) {
+
+    alert("Data siswa belum tersedia.");
+
+    return;
   }
+
+
+  // Ambil poin yang dipilih
+  const idPoin =
+    poinSelect.value;
+
+
+  if (!idPoin) {
+
+    alert("Silakan pilih poin terlebih dahulu.");
+
+    return;
+  }
+
+
+  // Ambil keterangan
+  const keterangan =
+    document.getElementById("keterangan").value.trim();
+
+
+  // Nonaktifkan tombol agar tidak double klik
+  btnSimpan.disabled = true;
+
+  btnSimpan.innerText =
+    "⏳ Menyimpan...";
+
+
+  // =====================================================
+  // CALLBACK
+  // =====================================================
+
+  const namaCallback =
+    "callbackSimpan_" + Date.now();
+
+
+  window[namaCallback] =
+    function(hasil) {
+
+      // Hapus callback
+      delete window[namaCallback];
+
+
+      if (!hasil.berhasil) {
+
+        alert(
+          "❌ Gagal menyimpan:\n" +
+          hasil.pesan
+        );
+
+        btnSimpan.disabled = false;
+
+        btnSimpan.innerText =
+          "💾 SIMPAN POIN";
+
+        return;
+      }
+
+
+      // =================================================
+      // BERHASIL
+      // =================================================
+
+      alert(
+        "✅ Poin berhasil disimpan."
+      );
+
+
+      // Setelah transaksi berhasil,
+      // ambil kembali data siswa agar
+      // poin terbaru langsung tampil.
+
+      perbaruiDataSiswaSetelahSimpan();
+
+    };
+
+
+  // =====================================================
+  // BUAT REQUEST JSONP
+  // =====================================================
+
+  const script =
+    document.createElement("script");
+
+
+  script.src =
+    APPS_SCRIPT_URL +
+    "?action=simpan" +
+    "&idSiswa=" +
+    encodeURIComponent(
+      siswaAktif.idSiswa
+    ) +
+    "&idPoin=" +
+    encodeURIComponent(
+      idPoin
+    ) +
+    "&keterangan=" +
+    encodeURIComponent(
+      keterangan
+    ) +
+    "&callback=" +
+    namaCallback;
+
+
+  script.onerror =
+    function() {
+
+      delete window[namaCallback];
+
+      alert(
+        "❌ Terjadi kesalahan saat menghubungi server."
+      );
+
+      btnSimpan.disabled = false;
+
+      btnSimpan.innerText =
+        "💾 SIMPAN POIN";
+
+    };
+
+
+  document.body.appendChild(script);
+
+}
 
 
   // =====================================================
