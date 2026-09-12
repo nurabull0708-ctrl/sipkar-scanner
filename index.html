@@ -17,6 +17,90 @@
 
   <style>
 
+    /* =========================
+   LOGIN
+   ========================= */
+
+#halamanLogin {
+  display: none;
+}
+
+.login-icon {
+  font-size: 55px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.login-title {
+  text-align: center;
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.login-subtitle {
+  text-align: center;
+  color: #777;
+  margin-bottom: 25px;
+}
+
+.login-field {
+  margin-top: 18px;
+}
+
+.login-field label {
+  display: block;
+  margin-bottom: 7px;
+  font-weight: bold;
+}
+
+.login-field input {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.btn-login {
+  width: 100%;
+  margin-top: 25px;
+  padding: 16px;
+  border: none;
+  border-radius: 12px;
+  background: #222;
+  color: white;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-login:disabled {
+  background: #aaa;
+}
+
+.login-pesan {
+  margin-top: 15px;
+  text-align: center;
+  color: #b42318;
+}
+
+.user-login {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #555;
+  font-size: 14px;
+}
+
+.btn-logout {
+  border: none;
+  background: none;
+  color: #b42318;
+  font-size: 14px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
     * {
       box-sizing: border-box;
     }
@@ -84,6 +168,71 @@
       color: #666;
       font-size: 14px;
     }
+
+    // =====================================================
+// MASUK KE SIPKAR SETELAH LOGIN
+// =====================================================
+
+function masukKeSIPKAR() {
+
+  document.getElementById("halamanLogin")
+    .style.display = "none";
+
+  document.getElementById("bagianScanner")
+    .style.display = "block";
+
+  dataSiswa.style.display = "none";
+
+  formPoin.style.display = "none";
+
+
+  const infoPengguna =
+    document.getElementById("infoPengguna");
+
+
+  infoPengguna.innerHTML =
+    "👨‍🏫 Login sebagai: <b>" +
+    penggunaAktif.nama +
+    "</b> " +
+    '<button class="btn-logout" onclick="logout()">Keluar</button>';
+
+}
+  // Mulai kamera
+mulaiScanner();
+
+    // =====================================================
+// LOGOUT
+// =====================================================
+
+function logout() {
+
+  if (!confirm("Apakah Anda yakin ingin keluar?")) {
+    return;
+  }
+
+
+  // Hentikan kamera jika sedang aktif
+  try {
+
+    html5QrCode.stop();
+
+  } catch (error) {
+
+    console.log(error);
+
+  }
+
+
+  localStorage.removeItem(
+    "sipkar_pengguna"
+  );
+
+
+  penggunaAktif = null;
+
+  location.reload();
+
+}
 
     /* =========================
        DATA SISWA
@@ -259,6 +408,71 @@
 
 <body>
 
+  // =====================================================
+// CEK LOGIN SAAT HALAMAN DIBUKA
+// =====================================================
+
+function cekLogin() {
+
+  const data =
+    localStorage.getItem(
+      "sipkar_pengguna"
+    );
+
+
+  if (!data) {
+
+    document.getElementById("halamanLogin")
+      .style.display = "block";
+
+    document.getElementById("bagianScanner")
+      .style.display = "none";
+
+    dataSiswa.style.display = "none";
+
+    formPoin.style.display = "none";
+
+    return;
+  }
+
+
+  try {
+
+    penggunaAktif =
+      JSON.parse(data);
+
+
+    if (
+      !penggunaAktif.idUser ||
+      !penggunaAktif.username
+    ) {
+
+      throw new Error(
+        "Data login tidak lengkap."
+      );
+
+    }
+
+
+    masukKeSIPKAR();
+
+  } catch (error) {
+
+    console.error(error);
+
+    localStorage.removeItem(
+      "sipkar_pengguna"
+    );
+
+    location.reload();
+
+  }
+
+}
+
+
+cekLogin();
+
 
   <!-- =========================
        HEADER
@@ -277,7 +491,195 @@
 
   <div class="container">
 
+    <!-- =========================
+     HALAMAN LOGIN
+     ========================= -->
+
+<div id="halamanLogin">
+
+  <div class="card">
+
+    <div class="login-icon">
+      🔐
+    </div>
+
+    <div class="login-title">
+      Login Guru
+    </div>
+
+    <div class="login-subtitle">
+      Masuk untuk menggunakan SIPKAR
+    </div>
+
+    <div class="login-field">
+
+      <label>
+        Username
+      </label>
+
+      <input
+        type="text"
+        id="usernameLogin"
+        placeholder="Masukkan username"
+        autocomplete="username"
+      >
+
+    </div>
+
+    <div class="login-field">
+
+      <label>
+        Password
+      </label>
+
+      <input
+        type="password"
+        id="passwordLogin"
+        placeholder="Masukkan password"
+        autocomplete="current-password"
+      >
+
+    </div>
+
+    <button
+      id="btnLogin"
+      class="btn-login"
+      onclick="login()"
+    >
+      🔐 MASUK
+    </button>
+
+    <div
+      id="pesanLogin"
+      class="login-pesan">
+    </div>
+
+  </div>
+
+</div>
+
     <div class="card">
+
+      // =====================================================
+// LOGIN GURU
+// =====================================================
+
+function login() {
+
+  const username =
+    document.getElementById("usernameLogin").value.trim();
+
+  const password =
+    document.getElementById("passwordLogin").value;
+
+  const pesanLogin =
+    document.getElementById("pesanLogin");
+
+  const btnLogin =
+    document.getElementById("btnLogin");
+
+
+  if (!username || !password) {
+
+    pesanLogin.innerText =
+      "Username dan password wajib diisi.";
+
+    return;
+  }
+
+
+  btnLogin.disabled = true;
+
+  btnLogin.innerText =
+    "⏳ Memeriksa...";
+
+  pesanLogin.innerText =
+    "";
+
+
+  const namaCallback =
+    "callbackLogin_" + Date.now();
+
+
+  window[namaCallback] =
+    function(hasil) {
+
+      delete window[namaCallback];
+
+
+      if (!hasil.berhasil) {
+
+        pesanLogin.innerText =
+          "❌ " + hasil.pesan;
+
+        btnLogin.disabled = false;
+
+        btnLogin.innerText =
+          "🔐 MASUK";
+
+        return;
+      }
+
+
+      // Simpan identitas pengguna
+      penggunaAktif = {
+
+        idUser: hasil.idUser,
+
+        nama: hasil.nama,
+
+        username: hasil.username,
+
+        role: hasil.role
+
+      };
+
+
+      localStorage.setItem(
+        "sipkar_pengguna",
+        JSON.stringify(penggunaAktif)
+      );
+
+
+      masukKeSIPKAR();
+
+    };
+
+
+  const script =
+    document.createElement("script");
+
+
+  script.src =
+    APPS_SCRIPT_URL +
+    "?action=login" +
+    "&username=" +
+    encodeURIComponent(username) +
+    "&password=" +
+    encodeURIComponent(password) +
+    "&callback=" +
+    namaCallback;
+
+
+  script.onerror =
+    function() {
+
+      delete window[namaCallback];
+
+      pesanLogin.innerText =
+        "❌ Tidak dapat menghubungi server.";
+
+      btnLogin.disabled = false;
+
+      btnLogin.innerText =
+        "🔐 MASUK";
+
+    };
+
+
+  document.body.appendChild(script);
+
+}
 
 
       <!-- =========================
@@ -285,6 +687,11 @@
            ========================= -->
 
       <div id="bagianScanner">
+
+        <div
+  id="infoPengguna"
+  class="user-login">
+</div>
 
         <div class="judul">
 
@@ -508,6 +915,8 @@
   // =====================================================
 
   let siswaAktif = null;
+
+  let penggunaAktif = null
 
   let semuaPoin = [];
 
@@ -1058,6 +1467,10 @@ function simpan() {
     encodeURIComponent(
       idPoin
     ) +
+    "&idUser=" +
+    encodeURIComponent(
+    penggunaAktif.idUser
+    )
     "&keterangan=" +
     encodeURIComponent(
       keterangan
