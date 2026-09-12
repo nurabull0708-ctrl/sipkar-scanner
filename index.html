@@ -560,128 +560,7 @@ cekLogin();
 
     <div class="card">
 
-      // =====================================================
-// LOGIN GURU
-// =====================================================
-
-function login() {
-
-  const username =
-    document.getElementById("usernameLogin").value.trim();
-
-  const password =
-    document.getElementById("passwordLogin").value;
-
-  const pesanLogin =
-    document.getElementById("pesanLogin");
-
-  const btnLogin =
-    document.getElementById("btnLogin");
-
-
-  if (!username || !password) {
-
-    pesanLogin.innerText =
-      "Username dan password wajib diisi.";
-
-    return;
-  }
-
-
-  btnLogin.disabled = true;
-
-  btnLogin.innerText =
-    "⏳ Memeriksa...";
-
-  pesanLogin.innerText =
-    "";
-
-
-  const namaCallback =
-    "callbackLogin_" + Date.now();
-
-
-  window[namaCallback] =
-    function(hasil) {
-
-      delete window[namaCallback];
-
-
-      if (!hasil.berhasil) {
-
-        pesanLogin.innerText =
-          "❌ " + hasil.pesan;
-
-        btnLogin.disabled = false;
-
-        btnLogin.innerText =
-          "🔐 MASUK";
-
-        return;
-      }
-
-
-      // Simpan identitas pengguna
-      penggunaAktif = {
-
-        idUser: hasil.idUser,
-
-        nama: hasil.nama,
-
-        username: hasil.username,
-
-        role: hasil.role
-
-      };
-
-
-      localStorage.setItem(
-        "sipkar_pengguna",
-        JSON.stringify(penggunaAktif)
-      );
-
-
-      masukKeSIPKAR();
-
-    };
-
-
-  const script =
-    document.createElement("script");
-
-
-  script.src =
-    APPS_SCRIPT_URL +
-    "?action=login" +
-    "&username=" +
-    encodeURIComponent(username) +
-    "&password=" +
-    encodeURIComponent(password) +
-    "&callback=" +
-    namaCallback;
-
-
-  script.onerror =
-    function() {
-
-      delete window[namaCallback];
-
-      pesanLogin.innerText =
-        "❌ Tidak dapat menghubungi server.";
-
-      btnLogin.disabled = false;
-
-      btnLogin.innerText =
-        "🔐 MASUK";
-
-    };
-
-
-  document.body.appendChild(script);
-
-}
-
-
+      
       <!-- =========================
            SCANNER
            ========================= -->
@@ -909,7 +788,127 @@ function login() {
   const APPS_SCRIPT_URL =
     "https://script.google.com/a/macros/guru.sd.belajar.id/s/AKfycbwzXoGGI6P1aRvAVVVVfvF6lHmTPgyk8gsjMl1irmWdCqsVY7FkcIL5wBRD1xXU3lOk/exec";
 
+// =====================================================
+// LOGIN GURU
+// =====================================================
 
+function login() {
+
+  const username =
+    document.getElementById("usernameLogin").value.trim();
+
+  const password =
+    document.getElementById("passwordLogin").value;
+
+  const pesanLogin =
+    document.getElementById("pesanLogin");
+
+  const btnLogin =
+    document.getElementById("btnLogin");
+
+
+  if (!username || !password) {
+
+    pesanLogin.innerText =
+      "Username dan password wajib diisi.";
+
+    return;
+  }
+
+
+  btnLogin.disabled = true;
+
+  btnLogin.innerText =
+    "⏳ Memeriksa...";
+
+  pesanLogin.innerText =
+    "";
+
+
+  const namaCallback =
+    "callbackLogin_" + Date.now();
+
+
+  window[namaCallback] =
+    function(hasil) {
+
+      delete window[namaCallback];
+
+
+      if (!hasil.berhasil) {
+
+        pesanLogin.innerText =
+          "❌ " + hasil.pesan;
+
+        btnLogin.disabled = false;
+
+        btnLogin.innerText =
+          "🔐 MASUK";
+
+        return;
+      }
+
+
+      // Simpan identitas pengguna
+      penggunaAktif = {
+
+        idUser: hasil.idUser,
+
+        nama: hasil.nama,
+
+        username: hasil.username,
+
+        role: hasil.role
+
+      };
+
+
+      localStorage.setItem(
+        "sipkar_pengguna",
+        JSON.stringify(penggunaAktif)
+      );
+
+
+      masukKeSIPKAR();
+
+    };
+
+
+  const script =
+    document.createElement("script");
+
+
+  script.src =
+    APPS_SCRIPT_URL +
+    "?action=login" +
+    "&username=" +
+    encodeURIComponent(username) +
+    "&password=" +
+    encodeURIComponent(password) +
+    "&callback=" +
+    namaCallback;
+
+
+  script.onerror =
+    function() {
+
+      delete window[namaCallback];
+
+      pesanLogin.innerText =
+        "❌ Tidak dapat menghubungi server.";
+
+      btnLogin.disabled = false;
+
+      btnLogin.innerText =
+        "🔐 MASUK";
+
+    };
+
+
+  document.body.appendChild(script);
+
+}
+  
   // =====================================================
   // DATA SEMENTARA
   // =====================================================
