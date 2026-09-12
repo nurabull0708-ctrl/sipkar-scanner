@@ -1093,76 +1093,43 @@ function simpan() {
 
 function perbaruiDataSiswaSetelahSimpan() {
 
-  const qrId =
-    siswaAktif.idSiswa;
+  // Setelah transaksi berhasil,
+  // langsung kembali ke mode scan
 
+  setTimeout(function() {
 
-  const namaCallback =
-    "callbackUpdate_" + Date.now();
+    siswaAktif = null;
+    semuaPoin = [];
+    jenisAktif = "";
 
+    // Bersihkan data siswa
+    document.getElementById("nama").innerText = "";
+    document.getElementById("idSiswa").innerText = "";
+    document.getElementById("kelas").innerText = "";
+    document.getElementById("poin").innerText = "";
 
-  window[namaCallback] =
-    function(siswa) {
+    // Sembunyikan data siswa
+    dataSiswa.style.display = "none";
 
-      delete window[namaCallback];
+    // Sembunyikan form
+    formPoin.style.display = "none";
 
+    // Tampilkan scanner
+    bagianScanner.style.display = "block";
 
-      if (siswa.ditemukan) {
+    // Reset form
+    resetForm();
 
-        siswaAktif = siswa;
+    // Pesan
+    pesan.innerText =
+      "Silakan scan QR siswa berikutnya.";
 
+    // Aktifkan tombol simpan kembali
+    btnSimpan.disabled = true;
+    btnSimpan.innerText =
+      "💾 SIMPAN POIN";
 
-        // Update data siswa
-        document.getElementById("nama").innerText =
-          siswa.nama;
-
-        document.getElementById("idSiswa").innerText =
-          "ID Siswa: " + siswa.idSiswa;
-
-        document.getElementById("kelas").innerText =
-          "Kelas: " + siswa.kelas;
-
-        document.getElementById("poin").innerText =
-          siswa.poin;
-      }
-
-
-      // Reset form
-      resetForm();
-
-
-      btnSimpan.innerText =
-        "💾 SIMPAN POIN";
-
-    };
-
-
-  const script =
-    document.createElement("script");
-
-
-  script.src =
-    APPS_SCRIPT_URL +
-    "?qr=" +
-    encodeURIComponent(qrId) +
-    "&callback=" +
-    namaCallback;
-
-
-  script.onerror =
-    function() {
-
-      delete window[namaCallback];
-
-      btnSimpan.innerText =
-        "💾 SIMPAN POIN";
-
-      btnSimpan.disabled = true;
-
-    };
-
-
-  document.body.appendChild(script);
+  }, 1000);
 
 }
   
