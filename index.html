@@ -17,142 +17,256 @@
 
   <style>
 
-/* =========================
-   RESET & DASAR
-   ========================= */
+/* =====================================================
+   SIPKAR — MODERN SCHOOL APP UI
+   ===================================================== */
+
+:root {
+  --primary: #173f5f;
+  --primary-dark: #102f48;
+  --accent: #f4b942;
+  --success: #168a55;
+  --danger: #c83c3c;
+  --text: #17202a;
+  --muted: #6b7280;
+  --surface: #ffffff;
+  --page: #f3f6fa;
+  --border: #e3e8ef;
+  --shadow: 0 12px 32px rgba(20, 38, 58, 0.09);
+}
 
 * {
   box-sizing: border-box;
 }
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f6f8;
-  color: #222;
+html {
+  min-height: 100%;
+  background: var(--page);
 }
 
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 10% 0%, rgba(23,63,95,0.07), transparent 28%),
+    linear-gradient(180deg, #f8fafc 0%, var(--page) 100%);
+}
+
+/* =====================================================
+   HEADER
+   ===================================================== */
+
 .header {
-  background: white;
-  padding: 18px;
+  padding: 18px 16px 20px;
   text-align: center;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.brand-icon {
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 13px;
+  background: #edf3f8;
+  font-size: 24px;
 }
 
 .header h1 {
   margin: 0;
-  font-size: 25px;
+  font-size: 27px;
+  letter-spacing: -0.5px;
 }
 
 .header p {
-  margin: 6px 0 0;
-  color: #666;
-  font-size: 14px;
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 13px;
 }
+
+/* =====================================================
+   LAYOUT
+   ===================================================== */
 
 .container {
   width: 100%;
-  max-width: 520px;
-  margin: 20px auto;
-  padding: 15px;
+  max-width: 540px;
+  margin: 0 auto;
+  padding: 18px 14px 32px;
 }
 
 .card {
-  background: white;
-  border-radius: 18px;
+  background: var(--surface);
+  border: 1px solid rgba(227,232,239,0.9);
+  border-radius: 22px;
   padding: 20px;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.08);
-  margin-bottom: 18px;
+  box-shadow: var(--shadow);
+  margin-bottom: 16px;
 }
 
-/* =========================
+/* =====================================================
    LOGIN
-   ========================= */
+   ===================================================== */
 
 #halamanLogin {
   display: none;
 }
 
 .login-icon {
-  font-size: 55px;
-  text-align: center;
-  margin-bottom: 10px;
+  width: 76px;
+  height: 76px;
+  margin: 2px auto 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 22px;
+  background: #edf3f8;
+  font-size: 43px;
 }
 
 .login-title {
   text-align: center;
-  font-size: 25px;
-  font-weight: bold;
-  margin-bottom: 5px;
+  font-size: 27px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
 }
 
 .login-subtitle {
   text-align: center;
-  color: #777;
-  margin-bottom: 25px;
+  color: var(--muted);
+  margin: 7px 0 25px;
+  font-size: 14px;
 }
 
 .login-field {
-  margin-top: 18px;
+  margin-top: 17px;
 }
 
 .login-field label {
   display: block;
-  margin-bottom: 7px;
-  font-weight: bold;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 700;
 }
 
 .login-field input {
   width: 100%;
-  padding: 14px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
+  padding: 15px 16px;
+  border: 1px solid #d7dee7;
+  border-radius: 13px;
   font-size: 16px;
+  outline: none;
+  background: #fbfcfd;
+  transition: 0.2s ease;
+}
+
+.login-field input:focus {
+  border-color: var(--primary);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(23,63,95,0.08);
 }
 
 .btn-login {
   width: 100%;
-  margin-top: 25px;
+  margin-top: 24px;
   padding: 16px;
   border: none;
-  border-radius: 12px;
-  background: #222;
+  border-radius: 14px;
+  background: var(--primary);
   color: white;
-  font-size: 17px;
-  font-weight: bold;
+  font-size: 16px;
+  font-weight: 800;
   cursor: pointer;
+  box-shadow: 0 8px 18px rgba(23,63,95,0.18);
+}
+
+.btn-login:active {
+  transform: translateY(1px);
 }
 
 .btn-login:disabled {
-  background: #aaa;
+  background: #aeb8c4;
+  box-shadow: none;
 }
 
 .login-pesan {
-  margin-top: 15px;
+  min-height: 20px;
+  margin-top: 13px;
   text-align: center;
-  color: #b42318;
+  color: var(--danger);
+  font-size: 13px;
 }
 
+/* =====================================================
+   USER / SESSION
+   ===================================================== */
+
 .user-login {
-  text-align: center;
-  margin-bottom: 15px;
-  color: #555;
-  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: -4px -4px 18px;
+  padding: 11px 12px;
+  border-radius: 13px;
+  background: #f5f8fb;
+  border: 1px solid var(--border);
+  color: #46515e;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.user-login b {
+  color: var(--text);
 }
 
 .btn-logout {
-  border: none;
-  background: none;
-  color: #b42318;
-  font-size: 14px;
+  flex: 0 0 auto;
+  border: 1px solid #f0c9c9;
+  background: #fff6f6;
+  color: var(--danger);
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 700;
   cursor: pointer;
-  margin-left: 5px;
-  padding: 3px 6px;
+  padding: 7px 10px;
 }
 
-/* =========================
+/* =====================================================
+   SECTION TITLE
+   ===================================================== */
+
+.judul {
+  text-align: center;
+  margin: 4px 0 18px;
+}
+
+.judul h2 {
+  margin: 0;
+  font-size: 24px;
+  letter-spacing: -0.4px;
+}
+
+.judul p {
+  margin: 7px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* =====================================================
    SCANNER
-   ========================= */
+   ===================================================== */
 
 #bagianScanner {
   display: none;
@@ -161,80 +275,109 @@ body {
 #reader {
   width: 100%;
   overflow: hidden;
-  border-radius: 15px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: #111820;
 }
 
-.judul {
-  text-align: center;
-  margin-bottom: 20px;
+/* Merapikan kontrol bawaan html5-qrcode */
+#reader button {
+  border-radius: 10px !important;
+  font-size: 14px !important;
 }
 
-.judul h2 {
-  margin: 0;
-  font-size: 25px;
+#reader select {
+  width: calc(100% - 16px) !important;
+  margin: 8px !important;
+  border-radius: 11px !important;
+  border: 1px solid #d7dee7 !important;
+  padding: 11px !important;
+  font-size: 14px !important;
 }
 
-.judul p {
-  color: #777;
+#reader video {
+  border-radius: 16px 16px 0 0 !important;
+}
+
+#reader img {
+  max-width: 100%;
 }
 
 .pesan {
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
   margin-top: 12px;
-  color: #666;
-  font-size: 14px;
+  padding: 10px 12px;
+  border-radius: 11px;
+  background: #f5f8fb;
+  color: #5d6875;
+  font-size: 13px;
 }
 
-/* =========================
+/* =====================================================
    DATA SISWA
-   ========================= */
+   ===================================================== */
 
 #dataSiswa {
   display: none;
 }
 
 .nama {
-  font-size: 25px;
-  font-weight: bold;
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.2;
   margin-bottom: 10px;
+  letter-spacing: -0.4px;
 }
 
 .info {
-  margin-top: 7px;
-  color: #555;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 14px;
 }
 
 .poin-box {
-  margin-top: 20px;
-  padding: 20px;
-  border-radius: 15px;
-  background: #f0f7ff;
+  position: relative;
+  overflow: hidden;
+  margin-top: 18px;
+  padding: 22px 18px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #edf4f9, #f8fbfd);
+  border: 1px solid #dce7ef;
   text-align: center;
 }
 
 .poin-label {
-  color: #666;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .poin-angka {
-  font-size: 45px;
-  font-weight: bold;
-  margin-top: 5px;
+  margin-top: 4px;
+  font-size: 52px;
+  line-height: 1;
+  font-weight: 900;
+  color: var(--primary);
 }
 
-/* =========================
+/* =====================================================
    INPUT POIN
-   ========================= */
+   ===================================================== */
 
 #formPoin {
   display: none;
-  margin-top: 25px;
+  margin-top: 24px;
 }
 
 .judul-form {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 15px;
+  font-size: 19px;
+  font-weight: 800;
+  margin-bottom: 13px;
 }
 
 .jenis-container {
@@ -244,52 +387,72 @@ body {
 
 .jenis-btn {
   flex: 1;
-  border: none;
-  border-radius: 12px;
-  padding: 15px 10px;
-  font-size: 15px;
-  font-weight: bold;
+  border: 1px solid transparent;
+  border-radius: 13px;
+  padding: 14px 10px;
+  font-size: 14px;
+  font-weight: 800;
   cursor: pointer;
+  transition: 0.15s ease;
+}
+
+.jenis-btn:active {
+  transform: scale(0.99);
 }
 
 .positif {
-  background: #e8f7ee;
-  color: #18794e;
+  background: #eaf7f0;
+  color: var(--success);
+  border-color: #ccebd9;
 }
 
 .negatif {
-  background: #fdecec;
-  color: #b42318;
+  background: #fff0f0;
+  color: var(--danger);
+  border-color: #f1d1d1;
 }
 
 .jenis-btn.aktif-positif {
-  background: #18794e;
+  background: var(--success);
   color: white;
+  border-color: var(--success);
+  box-shadow: 0 7px 15px rgba(22,138,85,0.18);
 }
 
 .jenis-btn.aktif-negatif {
-  background: #b42318;
+  background: var(--danger);
   color: white;
+  border-color: var(--danger);
+  box-shadow: 0 7px 15px rgba(200,60,60,0.18);
 }
 
 .field {
-  margin-top: 18px;
+  margin-top: 17px;
 }
 
 .field label {
   display: block;
-  margin-bottom: 7px;
-  font-weight: bold;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 700;
 }
 
 select,
 textarea {
   width: 100%;
-  padding: 13px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
+  padding: 13px 14px;
+  border: 1px solid #d7dee7;
+  border-radius: 12px;
   font-size: 15px;
+  background: #fbfcfd;
+  outline: none;
+}
+
+select:focus,
+textarea:focus {
+  border-color: var(--primary);
   background: white;
+  box-shadow: 0 0 0 3px rgba(23,63,95,0.07);
 }
 
 textarea {
@@ -298,71 +461,95 @@ textarea {
 }
 
 .nilai-box {
-  margin-top: 18px;
-  padding: 15px;
-  border-radius: 12px;
-  background: #f7f7f7;
+  margin-top: 17px;
+  padding: 16px;
+  border-radius: 14px;
+  background: #f7f9fb;
+  border: 1px solid var(--border);
   text-align: center;
 }
 
 .nilai-label {
-  color: #666;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
 }
 
 .nilai {
-  font-size: 30px;
-  font-weight: bold;
-  margin-top: 5px;
+  font-size: 32px;
+  font-weight: 900;
+  margin-top: 4px;
+  color: var(--text);
 }
 
 .tombol-simpan {
   width: 100%;
-  margin-top: 20px;
+  margin-top: 19px;
   padding: 16px;
   border: none;
-  border-radius: 12px;
-  background: #222;
+  border-radius: 14px;
+  background: var(--primary);
   color: white;
-  font-size: 17px;
-  font-weight: bold;
+  font-size: 16px;
+  font-weight: 800;
   cursor: pointer;
+  box-shadow: 0 8px 18px rgba(23,63,95,0.16);
 }
 
 .tombol-simpan:disabled {
-  background: #aaa;
+  background: #aeb8c4;
+  box-shadow: none;
   cursor: not-allowed;
 }
 
 .kembali {
-  margin-top: 20px;
+  margin-top: 16px;
   text-align: center;
 }
 
 .kembali button {
   border: none;
-  background: none;
-  color: #555;
-  font-size: 15px;
+  background: transparent;
+  color: var(--primary);
+  font-size: 14px;
+  font-weight: 700;
   cursor: pointer;
+  padding: 8px 12px;
 }
 
-/* =========================
+/* =====================================================
    MOBILE
-   ========================= */
+   ===================================================== */
 
 @media (max-width: 560px) {
+
+  .header {
+    padding: 15px 12px 17px;
+  }
+
+  .header h1 {
+    font-size: 25px;
+  }
+
   .container {
-    margin: 10px auto;
-    padding: 10px;
+    padding: 12px 10px 28px;
   }
 
   .card {
-    padding: 16px;
-    border-radius: 16px;
+    padding: 17px;
+    border-radius: 19px;
+  }
+
+  .user-login {
+    align-items: flex-start;
   }
 
   .judul h2 {
     font-size: 23px;
+  }
+
+  .poin-angka {
+    font-size: 48px;
   }
 }
 
@@ -374,7 +561,10 @@ textarea {
 <body>
 
   <div class="header">
-    <h1>📋 SIPKAR</h1>
+    <div class="brand">
+      <div class="brand-icon">📋</div>
+      <h1>SIPKAR</h1>
+    </div>
     <p>Sistem Informasi Poin Kedisiplinan dan Karakter</p>
   </div>
 
