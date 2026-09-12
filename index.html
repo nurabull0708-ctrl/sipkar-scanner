@@ -17,7 +17,55 @@
 
   <style>
 
-    /* =========================
+/* =========================
+   RESET & DASAR
+   ========================= */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  color: #222;
+}
+
+.header {
+  background: white;
+  padding: 18px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 25px;
+}
+
+.header p {
+  margin: 6px 0 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.container {
+  width: 100%;
+  max-width: 520px;
+  margin: 20px auto;
+  padding: 15px;
+}
+
+.card {
+  background: white;
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+  margin-bottom: 18px;
+}
+
+/* =========================
    LOGIN
    ========================= */
 
@@ -99,328 +147,224 @@
   font-size: 14px;
   cursor: pointer;
   margin-left: 5px;
+  padding: 3px 6px;
 }
 
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      color: #222;
-    }
-
-    .header {
-      background: white;
-      padding: 18px;
-      text-align: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    }
-
-    .header h1 {
-      margin: 0;
-      font-size: 25px;
-    }
-
-    .header p {
-      margin: 6px 0 0;
-      color: #666;
-      font-size: 14px;
-    }
-
-    .container {
-      max-width: 520px;
-      margin: 20px auto;
-      padding: 15px;
-    }
-
-    .card {
-      background: white;
-      border-radius: 18px;
-      padding: 20px;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.08);
-    }
-
-    .judul {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .judul h2 {
-      margin: 0;
-    }
-
-    .judul p {
-      color: #777;
-    }
-
-    #reader {
-      width: 100%;
-      overflow: hidden;
-      border-radius: 15px;
-    }
-
-    .pesan {
-      text-align: center;
-      margin-top: 12px;
-      color: #666;
-      font-size: 14px;
-    }
-
-  <!-- =========================
-       HEADER
-       ========================= -->
-
-  <div class="header">
-
-    <h1>📋 SIPKAR</h1>
-
-    <p>
-      Sistem Informasi Poin Kedisiplinan dan Karakter
-    </p>
-
-  </div>
-
-
-  <div class="container">
-
-    <!-- =========================
-     HALAMAN LOGIN
-     ========================= -->
-
-<div id="halamanLogin">
-
-  <div class="card">
-
-    <div class="login-icon">
-      🔐
-    </div>
-
-    <div class="login-title">
-      Login Guru
-    </div>
-
-    <div class="login-subtitle">
-      Masuk untuk menggunakan SIPKAR
-    </div>
-
-    <div class="login-field">
-
-      <label>
-        Username
-      </label>
-
-      <input
-        type="text"
-        id="usernameLogin"
-        placeholder="Masukkan username"
-        autocomplete="username"
-      >
-
-    </div>
-
-    <div class="login-field">
-
-      <label>
-        Password
-      </label>
-
-      <input
-        type="password"
-        id="passwordLogin"
-        placeholder="Masukkan password"
-        autocomplete="current-password"
-      >
-
-    </div>
-
-    <button
-      id="btnLogin"
-      class="btn-login"
-      onclick="login()"
-    >
-      🔐 MASUK
-    </button>
-
-    <div
-      id="pesanLogin"
-      class="login-pesan">
-    </div>
-
-  </div>
-
-</div>
-
-    <div class="card">
-
-    /* =========================
-       DATA SISWA
-       ========================= */
-
-    #dataSiswa {
-      display: none;
-    }
-
-    .nama {
-      font-size: 25px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    .info {
-      margin-top: 7px;
-      color: #555;
-    }
-
-    .poin-box {
-      margin-top: 20px;
-      padding: 20px;
-      border-radius: 15px;
-      background: #f0f7ff;
-      text-align: center;
-    }
-
-    .poin-label {
-      color: #666;
-    }
-
-    .poin-angka {
-      font-size: 45px;
-      font-weight: bold;
-      margin-top: 5px;
-    }
-
-    /* =========================
-       INPUT POIN
-       ========================= */
-
-    #formPoin {
-      display: none;
-      margin-top: 25px;
-    }
-
-    .judul-form {
-      font-size: 20px;
-      font-weight: bold;
-      margin-bottom: 15px;
-    }
-
-    .jenis-container {
-      display: flex;
-      gap: 10px;
-    }
-
-    .jenis-btn {
-      flex: 1;
-      border: none;
-      border-radius: 12px;
-      padding: 15px 10px;
-      font-size: 15px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .positif {
-      background: #e8f7ee;
-      color: #18794e;
-    }
-
-    .negatif {
-      background: #fdecec;
-      color: #b42318;
-    }
-
-    .jenis-btn.aktif-positif {
-      background: #18794e;
-      color: white;
-    }
-
-    .jenis-btn.aktif-negatif {
-      background: #b42318;
-      color: white;
-    }
-
-    .field {
-      margin-top: 18px;
-    }
-
-    .field label {
-      display: block;
-      margin-bottom: 7px;
-      font-weight: bold;
-    }
-
-    select,
-    textarea {
-      width: 100%;
-      padding: 13px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      font-size: 15px;
-      background: white;
-    }
-
-    textarea {
-      min-height: 90px;
-      resize: vertical;
-    }
-
-    .nilai-box {
-      margin-top: 18px;
-      padding: 15px;
-      border-radius: 12px;
-      background: #f7f7f7;
-      text-align: center;
-    }
-
-    .nilai-label {
-      color: #666;
-    }
-
-    .nilai {
-      font-size: 30px;
-      font-weight: bold;
-      margin-top: 5px;
-    }
-
-    .tombol-simpan {
-      width: 100%;
-      margin-top: 20px;
-      padding: 16px;
-      border: none;
-      border-radius: 12px;
-      background: #222;
-      color: white;
-      font-size: 17px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .tombol-simpan:disabled {
-      background: #aaa;
-      cursor: not-allowed;
-    }
-
-    .kembali {
-      margin-top: 20px;
-      text-align: center;
-    }
-
-    .kembali button {
-      border: none;
-      background: none;
-      color: #555;
-      font-size: 15px;
-      cursor: pointer;
-    }
-
-    .loading {
-      text-align: center;
-      padding: 15px;
-      color: #666;
-    }
+/* =========================
+   SCANNER
+   ========================= */
+
+#bagianScanner {
+  display: none;
+}
+
+#reader {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.judul {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.judul h2 {
+  margin: 0;
+  font-size: 25px;
+}
+
+.judul p {
+  color: #777;
+}
+
+.pesan {
+  text-align: center;
+  margin-top: 12px;
+  color: #666;
+  font-size: 14px;
+}
+
+/* =========================
+   DATA SISWA
+   ========================= */
+
+#dataSiswa {
+  display: none;
+}
+
+.nama {
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.info {
+  margin-top: 7px;
+  color: #555;
+}
+
+.poin-box {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 15px;
+  background: #f0f7ff;
+  text-align: center;
+}
+
+.poin-label {
+  color: #666;
+}
+
+.poin-angka {
+  font-size: 45px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+/* =========================
+   INPUT POIN
+   ========================= */
+
+#formPoin {
+  display: none;
+  margin-top: 25px;
+}
+
+.judul-form {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.jenis-container {
+  display: flex;
+  gap: 10px;
+}
+
+.jenis-btn {
+  flex: 1;
+  border: none;
+  border-radius: 12px;
+  padding: 15px 10px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.positif {
+  background: #e8f7ee;
+  color: #18794e;
+}
+
+.negatif {
+  background: #fdecec;
+  color: #b42318;
+}
+
+.jenis-btn.aktif-positif {
+  background: #18794e;
+  color: white;
+}
+
+.jenis-btn.aktif-negatif {
+  background: #b42318;
+  color: white;
+}
+
+.field {
+  margin-top: 18px;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 7px;
+  font-weight: bold;
+}
+
+select,
+textarea {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 15px;
+  background: white;
+}
+
+textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.nilai-box {
+  margin-top: 18px;
+  padding: 15px;
+  border-radius: 12px;
+  background: #f7f7f7;
+  text-align: center;
+}
+
+.nilai-label {
+  color: #666;
+}
+
+.nilai {
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.tombol-simpan {
+  width: 100%;
+  margin-top: 20px;
+  padding: 16px;
+  border: none;
+  border-radius: 12px;
+  background: #222;
+  color: white;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.tombol-simpan:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}
+
+.kembali {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.kembali button {
+  border: none;
+  background: none;
+  color: #555;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 560px) {
+  .container {
+    margin: 10px auto;
+    padding: 10px;
+  }
+
+  .card {
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .judul h2 {
+    font-size: 23px;
+  }
+}
 
   </style>
 
@@ -429,83 +373,112 @@
 
 <body>
 
-       
-      <!-- =========================
-           SCANNER
-           ========================= -->
+  <div class="header">
+    <h1>📋 SIPKAR</h1>
+    <p>Sistem Informasi Poin Kedisiplinan dan Karakter</p>
+  </div>
 
-      <div id="bagianScanner">
+  <div class="container">
 
-        <div
-  id="infoPengguna"
-  class="user-login">
-</div>
+    <!-- =========================
+         HALAMAN LOGIN
+         ========================= -->
+
+    <div id="halamanLogin">
+      <div class="card">
+
+        <div class="login-icon">🔐</div>
+
+        <div class="login-title">Login Guru</div>
+
+        <div class="login-subtitle">
+          Masuk untuk menggunakan SIPKAR
+        </div>
+
+        <div class="login-field">
+          <label for="usernameLogin">Username</label>
+          <input
+            type="text"
+            id="usernameLogin"
+            placeholder="Masukkan username"
+            autocomplete="username"
+          >
+        </div>
+
+        <div class="login-field">
+          <label for="passwordLogin">Password</label>
+          <input
+            type="password"
+            id="passwordLogin"
+            placeholder="Masukkan password"
+            autocomplete="current-password"
+          >
+        </div>
+
+        <button
+          id="btnLogin"
+          class="btn-login"
+          onclick="login()"
+        >
+          🔐 MASUK
+        </button>
+
+        <div id="pesanLogin" class="login-pesan"></div>
+
+      </div>
+    </div>
+
+
+    <!-- =========================
+         SCANNER
+         ========================= -->
+
+    <div id="bagianScanner">
+      <div class="card">
+
+        <div id="infoPengguna" class="user-login"></div>
 
         <div class="judul">
-
           <h2>📷 Scan QR Siswa</h2>
-
-          <p>
-            Arahkan kamera ke QR Code siswa
-          </p>
-
+          <p>Arahkan kamera ke QR Code siswa</p>
         </div>
 
         <div id="reader"></div>
 
-        <div id="pesan"
-             class="pesan">
-
+        <div id="pesan" class="pesan">
           Menunggu kamera...
-
         </div>
 
       </div>
+    </div>
 
 
-      <!-- =========================
-           DATA SISWA
-           ========================= -->
+    <!-- =========================
+         DATA SISWA
+         ========================= -->
 
-      <div id="dataSiswa">
+    <div id="dataSiswa">
+      <div class="card">
 
         <div class="judul">
-
           <h2>👤 Data Peserta Didik</h2>
-
         </div>
 
         <hr>
 
-        <div id="nama"
-             class="nama">
-        </div>
+        <div id="nama" class="nama"></div>
 
-        <div id="idSiswa"
-             class="info">
-        </div>
+        <div id="idSiswa" class="info"></div>
 
-        <div id="kelas"
-             class="info">
-        </div>
+        <div id="kelas" class="info"></div>
 
-        <div id="poinBox"
-             class="poin-box">
-
-          <div class="poin-label">
-            Poin Saat Ini
-          </div>
-
-          <div id="poin"
-               class="poin-angka">
-          </div>
-
+        <div id="poinBox" class="poin-box">
+          <div class="poin-label">Poin Saat Ini</div>
+          <div id="poin" class="poin-angka"></div>
         </div>
 
 
-        <!-- =========================
-             FORM INPUT POIN
-             ========================= -->
+        <!-- FORM INPUT POIN -->
 
         <div id="formPoin">
 
@@ -513,144 +486,95 @@
             Input Poin
           </div>
 
-
-          <!-- JENIS -->
-
           <div class="jenis-container">
 
             <button
               id="btnPositif"
               class="jenis-btn positif"
-              onclick="pilihJenis('Positif')">
-
+              onclick="pilihJenis('Positif')"
+            >
               🟢 Positif
-
             </button>
 
             <button
               id="btnNegatif"
               class="jenis-btn negatif"
-              onclick="pilihJenis('Negatif')">
-
+              onclick="pilihJenis('Negatif')"
+            >
               🔴 Negatif
-
             </button>
 
           </div>
 
 
-          <!-- KATEGORI -->
-
           <div class="field">
-
-            <label>
-              Kategori
-            </label>
+            <label for="kategori">Kategori</label>
 
             <select
               id="kategori"
-              onchange="kategoriBerubah()">
-
-              <option value="">
-                Pilih kategori
-              </option>
-
+              onchange="kategoriBerubah()"
+            >
+              <option value="">Pilih kategori</option>
             </select>
-
           </div>
 
 
-          <!-- NAMA POIN -->
-
           <div class="field">
-
-            <label>
-              Poin / Pelanggaran
-            </label>
+            <label for="poinSelect">Poin / Pelanggaran</label>
 
             <select
               id="poinSelect"
-              onchange="poinBerubah()">
-
-              <option value="">
-                Pilih poin
-              </option>
-
+              onchange="poinBerubah()"
+            >
+              <option value="">Pilih poin</option>
             </select>
-
           </div>
 
-
-          <!-- NILAI -->
 
           <div class="nilai-box">
+            <div class="nilai-label">Nilai Poin</div>
 
-            <div class="nilai-label">
-              Nilai Poin
-            </div>
-
-            <div id="nilai"
-                 class="nilai">
-
+            <div id="nilai" class="nilai">
               -
-
             </div>
-
           </div>
 
 
-          <!-- KETERANGAN -->
-
           <div class="field">
-
-            <label>
-              Keterangan
-            </label>
+            <label for="keterangan">Keterangan</label>
 
             <textarea
               id="keterangan"
-              placeholder="Tambahkan keterangan jika diperlukan...">
-            </textarea>
-
+              placeholder="Tambahkan keterangan jika diperlukan..."
+            ></textarea>
           </div>
 
-
-          <!-- SIMPAN -->
 
           <button
             id="btnSimpan"
             class="tombol-simpan"
             disabled
-            onclick="simpan()">
-
+            onclick="simpan()"
+          >
             💾 SIMPAN POIN
-
           </button>
 
         </div>
 
 
-        <!-- KEMBALI -->
-
         <div class="kembali">
-
           <button onclick="kembaliScanner()">
             ← Scan Siswa Lain
           </button>
-
         </div>
 
       </div>
-
     </div>
 
   </div>
 
-
-<script>
-
-
-  // =====================================================
+  <script>
+// =====================================================
   // URL WEB APP APPS SCRIPT
   // =====================================================
 
@@ -785,9 +709,10 @@ function login() {
 
   let siswaAktif = null;
 
-  let penggunaAktif = null
+  let penggunaAktif = null;
+  let scannerAktif = null;
 
-        // =====================================================
+// =====================================================
 // MASUK KE SIPKAR SETELAH LOGIN
 // =====================================================
 
@@ -808,6 +733,9 @@ function masukKeSIPKAR() {
     "</b> " +
     '<button class="btn-logout" onclick="logout()">Keluar</button>';
 
+  pesan.innerText = "Menunggu kamera...";
+
+  // Kamera hanya dimulai setelah login berhasil.
   mulaiScanner();
 }
 
@@ -822,6 +750,15 @@ function logout() {
     return;
   }
 
+  if (scannerAktif) {
+    try {
+      scannerAktif.clear();
+    } catch (error) {
+      console.log(error);
+    }
+    scannerAktif = null;
+  }
+
   localStorage.removeItem("sipkar_pengguna");
   penggunaAktif = null;
 
@@ -830,7 +767,7 @@ function logout() {
 
 
 // =====================================================
-// CEK LOGIN
+// CEK LOGIN SAAT HALAMAN DIBUKA
 // =====================================================
 
 function cekLogin() {
@@ -866,10 +803,51 @@ function cekLogin() {
     console.error(error);
 
     localStorage.removeItem("sipkar_pengguna");
+    penggunaAktif = null;
 
-    location.reload();
+    document.getElementById("halamanLogin").style.display = "block";
+    document.getElementById("bagianScanner").style.display = "none";
+    dataSiswa.style.display = "none";
+    formPoin.style.display = "none";
   }
 }
+
+
+// =====================================================
+// LOGOUT MELALUI URL
+// =====================================================
+
+function prosesLogoutDariURL() {
+
+  const parameterURL =
+    new URLSearchParams(window.location.search);
+
+  if (parameterURL.get("logout") === "1") {
+
+    if (scannerAktif) {
+      try {
+        scannerAktif.clear();
+      } catch (error) {
+        console.log(error);
+      }
+      scannerAktif = null;
+    }
+
+    localStorage.removeItem("sipkar_pengguna");
+    penggunaAktif = null;
+
+    history.replaceState(
+      {},
+      document.title,
+      window.location.pathname
+    );
+
+    return true;
+  }
+
+  return false;
+}
+
 
   // =====================================================
 // MULAI SCANNER QR
@@ -884,9 +862,19 @@ function mulaiScanner() {
     return;
   }
 
+  // Pastikan scanner lama tidak berjalan ganda.
+  if (scannerAktif) {
+    try {
+      scannerAktif.clear();
+    } catch (error) {
+      console.log(error);
+    }
+    scannerAktif = null;
+  }
+
   reader.innerHTML = "";
 
-  const scanner = new Html5QrcodeScanner(
+  scannerAktif = new Html5QrcodeScanner(
     "reader",
     {
       fps: 10,
@@ -1461,8 +1449,8 @@ function simpan() {
     ) +
     "&idUser=" +
     encodeURIComponent(
-    penggunaAktif.idUser
-    )
+      penggunaAktif.idUser
+    ) +
     "&keterangan=" +
     encodeURIComponent(
       keterangan
@@ -1537,15 +1525,16 @@ function perbaruiDataSiswaSetelahSimpan() {
   }, 1000);
 
 }
-  
-  // =====================================================
+
+// =====================================================
 // JALANKAN APLIKASI
 // =====================================================
 
-cekLogin();
+if (!prosesLogoutDariURL()) {
+  cekLogin();
+}
 
-</script>
+  </script>
 
 </body>
-
 </html>
