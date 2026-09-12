@@ -169,178 +169,6 @@
       font-size: 14px;
     }
 
-// =====================================================
-// MASUK KE SIPKAR SETELAH LOGIN
-// =====================================================
-
-function masukKeSIPKAR() {
-
-  document.getElementById("halamanLogin")
-    .style.display = "none";
-
-  document.getElementById("bagianScanner")
-    .style.display = "block";
-
-  dataSiswa.style.display = "none";
-
-  formPoin.style.display = "none";
-
-
-  const infoPengguna =
-    document.getElementById("infoPengguna");
-
-
-  infoPengguna.innerHTML =
-    "👨‍🏫 Login sebagai: <b>" +
-    penggunaAktif.nama +
-    "</b> " +
-    '<button class="btn-logout" onclick="logout()">Keluar</button>';
-
-
-  // ===============================
-  // MULAI KAMERA SETELAH LOGIN
-  // ===============================
-  mulaiScanner();
-
-}
-
-    
-// =====================================================
-// LOGOUT
-// =====================================================
-
-function logout() {
-
-  if (!confirm("Apakah Anda yakin ingin keluar?")) {
-    return;
-  }
-
-
-  // Hentikan kamera jika sedang aktif
-  try {
-
-    html5QrCode.stop();
-
-  } catch (error) {
-
-    console.log(error);
-
-  }
-
-
-  localStorage.removeItem(
-    "sipkar_pengguna"
-  );
-
-
-  penggunaAktif = null;
-
-  location.reload();
-
-}
-    
-// =====================================================
-// CEK LOGIN SAAT HALAMAN DIBUKA
-// =====================================================
-
-function cekLogin() {
-
-  const data =
-    localStorage.getItem(
-      "sipkar_pengguna"
-    );
-
-
-  if (!data) {
-
-    document.getElementById("halamanLogin")
-      .style.display = "block";
-
-    document.getElementById("bagianScanner")
-      .style.display = "none";
-
-    dataSiswa.style.display = "none";
-
-    formPoin.style.display = "none";
-
-    return;
-  }
-
-
-  try {
-
-    penggunaAktif =
-      JSON.parse(data);
-
-
-    if (
-      !penggunaAktif.idUser ||
-      !penggunaAktif.username
-    ) {
-
-      throw new Error(
-        "Data login tidak lengkap."
-      );
-
-    }
-
-
-    masukKeSIPKAR();
-
-  } catch (error) {
-
-    console.error(error);
-
-    localStorage.removeItem(
-      "sipkar_pengguna"
-    );
-
-    location.reload();
-
-  }
-
-}
-
-
-// ===============================
-// CEK LOGOUT DARI URL
-// ===============================
-function prosesLogoutDariURL() {
-  const parameterURL = new URLSearchParams(window.location.search);
-
-  if (parameterURL.get("logout") === "1") {
-    // Hapus sesi login
-    localStorage.removeItem("sipkar_pengguna");
-    penggunaAktif = null;
-
-    // Bersihkan URL
-    history.replaceState(
-      {},
-      document.title,
-      window.location.pathname
-    );
-
-    // Tampilkan halaman login
-    document.getElementById("halamanLogin").style.display = "block";
-    document.getElementById("bagianScanner").style.display = "none";
-    document.getElementById("dataSiswa").style.display = "none";
-    document.getElementById("formPoin").style.display = "none";
-
-    return true;
-  }
-
-  return false;
-}
-
-
-// ===============================
-// JALANKAN APLIKASI
-// ===============================
-if (!prosesLogoutDariURL()) {
-  cekLogin();
-}
-
-
   <!-- =========================
        HEADER
        ========================= -->
@@ -958,6 +786,90 @@ function login() {
   let siswaAktif = null;
 
   let penggunaAktif = null
+
+        // =====================================================
+// MASUK KE SIPKAR SETELAH LOGIN
+// =====================================================
+
+function masukKeSIPKAR() {
+
+  document.getElementById("halamanLogin").style.display = "none";
+  document.getElementById("bagianScanner").style.display = "block";
+
+  dataSiswa.style.display = "none";
+  formPoin.style.display = "none";
+
+  const infoPengguna =
+    document.getElementById("infoPengguna");
+
+  infoPengguna.innerHTML =
+    "👨‍🏫 Login sebagai: <b>" +
+    penggunaAktif.nama +
+    "</b> " +
+    '<button class="btn-logout" onclick="logout()">Keluar</button>';
+
+  mulaiScanner();
+}
+
+
+// =====================================================
+// LOGOUT
+// =====================================================
+
+function logout() {
+
+  if (!confirm("Apakah Anda yakin ingin keluar?")) {
+    return;
+  }
+
+  localStorage.removeItem("sipkar_pengguna");
+  penggunaAktif = null;
+
+  location.reload();
+}
+
+
+// =====================================================
+// CEK LOGIN
+// =====================================================
+
+function cekLogin() {
+
+  const data =
+    localStorage.getItem("sipkar_pengguna");
+
+  if (!data) {
+
+    document.getElementById("halamanLogin").style.display = "block";
+    document.getElementById("bagianScanner").style.display = "none";
+    dataSiswa.style.display = "none";
+    formPoin.style.display = "none";
+
+    return;
+  }
+
+  try {
+
+    penggunaAktif = JSON.parse(data);
+
+    if (
+      !penggunaAktif.idUser ||
+      !penggunaAktif.username
+    ) {
+      throw new Error("Data login tidak lengkap.");
+    }
+
+    masukKeSIPKAR();
+
+  } catch (error) {
+
+    console.error(error);
+
+    localStorage.removeItem("sipkar_pengguna");
+
+    location.reload();
+  }
+}
 
   // =====================================================
 // MULAI SCANNER QR
@@ -1627,48 +1539,10 @@ function perbaruiDataSiswaSetelahSimpan() {
 }
   
   // =====================================================
-  // START SCANNER
-  // =====================================================
+// JALANKAN APLIKASI
+// =====================================================
 
-  const scanner =
-    new Html5QrcodeScanner(
-
-      "reader",
-
-      {
-
-        fps: 10,
-
-        qrbox: {
-          width: 250,
-          height: 250
-        },
-
-        rememberLastUsedCamera: true,
-
-        supportedScanTypes: [
-          Html5QrcodeScanType.SCAN_TYPE_CAMERA
-        ]
-
-      },
-
-      false
-
-    );
-
-
-  scanner.render(
-
-    qrBerhasil,
-
-    function(error) {
-
-      // QR belum terbaca.
-      // Tidak perlu menampilkan error.
-
-    }
-
-  );
+cekLogin();
 
 </script>
 
