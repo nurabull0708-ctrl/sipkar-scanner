@@ -563,37 +563,77 @@
   // AMBIL DATA SISWA
   // =====================================================
 
-  async function ambilDataSiswa(qrId) {
+  function ambilDataSiswa(qrId) {
 
-  try {
+  pesan.innerText = "Mengambil data siswa...";
+
+  const namaCallback =
+    "callbackSiswa_" + Date.now();
+
+  window[namaCallback] = function(siswa) {
+
+    // Hapus callback setelah selesai
+    delete window[namaCallback];
+
+    if (!siswa.ditemukan) {
+
+      pesan.innerText =
+        "❌ Siswa tidak ditemukan.";
+
+      return;
+    }
+
+    siswaAktif = siswa;
+
+    // Tampilkan data siswa
+    document.getElementById("nama").innerText =
+      siswa.nama;
+
+    document.getElementById("idSiswa").innerText =
+      "ID Siswa: " + siswa.idSiswa;
+
+    document.getElementById("kelas").innerText =
+      "Kelas: " + siswa.kelas;
+
+    document.getElementById("poin").innerText =
+      siswa.poin;
+
+    // Sembunyikan scanner
+    bagianScanner.style.display =
+      "none";
+
+    // Tampilkan data siswa
+    dataSiswa.style.display =
+      "block";
+
+    // Tampilkan form poin
+    formPoin.style.display =
+      "block";
+
+    // Reset form
+    resetForm();
+
+  };
+
+  const script =
+    document.createElement("script");
+
+  script.src =
+    APPS_SCRIPT_URL +
+    "?qr=" +
+    encodeURIComponent(qrId) +
+    "&callback=" +
+    namaCallback;
+
+  script.onerror = function() {
+
+    delete window[namaCallback];
 
     pesan.innerText =
-      "Membuka data siswa...";
+      "❌ Gagal mengambil data siswa.";
+  };
 
-    const url =
-      APPS_SCRIPT_URL +
-      "?qr=" +
-      encodeURIComponent(qrId);
-
-    /*
-      Apps Script tidak bisa di-fetch langsung
-      dari GitHub Pages karena pembatasan CORS.
-
-      Untuk sementara kita buka URL Apps Script
-      secara langsung. Apps Script sudah terbukti
-      mengembalikan data siswa dengan benar.
-    */
-
-    window.location.href = url;
-
-  } catch (error) {
-
-    console.error(error);
-
-    pesan.innerText =
-      "❌ Gagal membuka data siswa.";
-
-  }
+  document.body.appendChild(script);
 
 }
 
