@@ -886,7 +886,7 @@ function pilihJenis(jenis) {
     // Untuk tahap ini tombol tetap dinonaktifkan
 
     btnSimpan.disabled =
-      true;
+  false;
 
   }
 
@@ -1083,7 +1083,85 @@ function simpan() {
 
 }
 
+// =====================================================
+// PERBARUI DATA SISWA SETELAH SIMPAN
+// =====================================================
 
+function perbaruiDataSiswaSetelahSimpan() {
+
+  const qrId =
+    siswaAktif.idSiswa;
+
+
+  const namaCallback =
+    "callbackUpdate_" + Date.now();
+
+
+  window[namaCallback] =
+    function(siswa) {
+
+      delete window[namaCallback];
+
+
+      if (siswa.ditemukan) {
+
+        siswaAktif = siswa;
+
+
+        // Update data siswa
+        document.getElementById("nama").innerText =
+          siswa.nama;
+
+        document.getElementById("idSiswa").innerText =
+          "ID Siswa: " + siswa.idSiswa;
+
+        document.getElementById("kelas").innerText =
+          "Kelas: " + siswa.kelas;
+
+        document.getElementById("poin").innerText =
+          siswa.poin;
+      }
+
+
+      // Reset form
+      resetForm();
+
+
+      btnSimpan.innerText =
+        "💾 SIMPAN POIN";
+
+    };
+
+
+  const script =
+    document.createElement("script");
+
+
+  script.src =
+    APPS_SCRIPT_URL +
+    "?qr=" +
+    encodeURIComponent(qrId) +
+    "&callback=" +
+    namaCallback;
+
+
+  script.onerror =
+    function() {
+
+      delete window[namaCallback];
+
+      btnSimpan.innerText =
+        "💾 SIMPAN POIN";
+
+      btnSimpan.disabled = true;
+
+    };
+
+
+  document.body.appendChild(script);
+
+}
+  
   // =====================================================
   // START SCANNER
   // =====================================================
