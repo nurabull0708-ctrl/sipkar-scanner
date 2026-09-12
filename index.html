@@ -298,18 +298,43 @@ function cekLogin() {
 }
 
 
-// Cek apakah pengguna meminta logout melalui URL
-const parameterURL = new URLSearchParams(window.location.search);
+// ===============================
+// CEK LOGOUT DARI URL
+// ===============================
+function prosesLogoutDariURL() {
+  const parameterURL = new URLSearchParams(window.location.search);
 
-if (parameterURL.get("logout") === "1") {
-  localStorage.removeItem("sipkar_pengguna");
-  penggunaAktif = null;
+  if (parameterURL.get("logout") === "1") {
+    // Hapus sesi login
+    localStorage.removeItem("sipkar_pengguna");
+    penggunaAktif = null;
 
-  // Bersihkan ?logout=1 dari alamat browser
-  history.replaceState({}, document.title, window.location.pathname);
+    // Bersihkan URL
+    history.replaceState(
+      {},
+      document.title,
+      window.location.pathname
+    );
+
+    // Tampilkan halaman login
+    document.getElementById("halamanLogin").style.display = "block";
+    document.getElementById("bagianScanner").style.display = "none";
+    document.getElementById("dataSiswa").style.display = "none";
+    document.getElementById("formPoin").style.display = "none";
+
+    return true;
+  }
+
+  return false;
 }
 
-cekLogin();
+
+// ===============================
+// JALANKAN APLIKASI
+// ===============================
+if (!prosesLogoutDariURL()) {
+  cekLogin();
+}
 
 
   <!-- =========================
