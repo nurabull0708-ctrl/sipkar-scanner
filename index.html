@@ -10,9 +10,9 @@
 
   <title>SIPKAR - Scan QR</title>
 
-  <!-- Library Scanner QR -->
-  <script src="https://unpkg.com/html5-qrcode"
-          type="text/javascript">
+  <script
+    src="https://unpkg.com/html5-qrcode"
+    type="text/javascript">
   </script>
 
   <style>
@@ -29,7 +29,7 @@
     }
 
     .header {
-      background: #ffffff;
+      background: white;
       padding: 18px;
       text-align: center;
       box-shadow: 0 2px 10px rgba(0,0,0,0.08);
@@ -41,13 +41,14 @@
     }
 
     .header p {
-      margin: 5px 0 0;
+      margin: 6px 0 0;
       color: #666;
+      font-size: 14px;
     }
 
     .container {
-      max-width: 500px;
-      margin: 25px auto;
+      max-width: 520px;
+      margin: 20px auto;
       padding: 15px;
     }
 
@@ -68,7 +69,7 @@
     }
 
     .judul p {
-      color: #666;
+      color: #777;
     }
 
     #reader {
@@ -77,33 +78,38 @@
       border-radius: 15px;
     }
 
-    .hasil {
-      margin-top: 20px;
+    .pesan {
+      text-align: center;
+      margin-top: 12px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    /* =========================
+       DATA SISWA
+       ========================= */
+
+    #dataSiswa {
       display: none;
     }
 
-    .siswa {
-      padding: 20px;
-      border-radius: 15px;
-      background: #f0f7ff;
-    }
-
     .nama {
-      font-size: 24px;
+      font-size: 25px;
       font-weight: bold;
+      margin-bottom: 10px;
     }
 
     .info {
-      margin-top: 8px;
+      margin-top: 7px;
       color: #555;
     }
 
-    .poin {
-      margin-top: 18px;
-      padding: 15px;
+    .poin-box {
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 15px;
+      background: #f0f7ff;
       text-align: center;
-      background: white;
-      border-radius: 12px;
     }
 
     .poin-label {
@@ -111,27 +117,160 @@
     }
 
     .poin-angka {
-      font-size: 40px;
+      font-size: 45px;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+
+    /* =========================
+       INPUT POIN
+       ========================= */
+
+    #formPoin {
+      display: none;
+      margin-top: 25px;
+    }
+
+    .judul-form {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .jenis-container {
+      display: flex;
+      gap: 10px;
+    }
+
+    .jenis-btn {
+      flex: 1;
+      border: none;
+      border-radius: 12px;
+      padding: 15px 10px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .positif {
+      background: #e8f7ee;
+      color: #18794e;
+    }
+
+    .negatif {
+      background: #fdecec;
+      color: #b42318;
+    }
+
+    .jenis-btn.aktif-positif {
+      background: #18794e;
+      color: white;
+    }
+
+    .jenis-btn.aktif-negatif {
+      background: #b42318;
+      color: white;
+    }
+
+    .field {
+      margin-top: 18px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 7px;
       font-weight: bold;
     }
 
-    .pesan {
-      margin-top: 15px;
+    select,
+    textarea {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 15px;
+      background: white;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .nilai-box {
+      margin-top: 18px;
+      padding: 15px;
+      border-radius: 12px;
+      background: #f7f7f7;
       text-align: center;
-      color: #777;
+    }
+
+    .nilai-label {
+      color: #666;
+    }
+
+    .nilai {
+      font-size: 30px;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+
+    .tombol-simpan {
+      width: 100%;
+      margin-top: 20px;
+      padding: 16px;
+      border: none;
+      border-radius: 12px;
+      background: #222;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .tombol-simpan:disabled {
+      background: #aaa;
+      cursor: not-allowed;
+    }
+
+    .kembali {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .kembali button {
+      border: none;
+      background: none;
+      color: #555;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 15px;
+      color: #666;
     }
 
   </style>
 
 </head>
 
+
 <body>
+
+
+  <!-- =========================
+       HEADER
+       ========================= -->
 
   <div class="header">
 
     <h1>📋 SIPKAR</h1>
 
-    <p>Sistem Informasi Poin Kedisiplinan dan Karakter</p>
+    <p>
+      Sistem Informasi Poin Kedisiplinan dan Karakter
+    </p>
 
   </div>
 
@@ -140,60 +279,209 @@
 
     <div class="card">
 
-      <div class="judul">
 
-        <h2>📷 Scan QR Siswa</h2>
+      <!-- =========================
+           SCANNER
+           ========================= -->
 
-        <p>
-          Arahkan kamera ke QR Code siswa
-        </p>
+      <div id="bagianScanner">
+
+        <div class="judul">
+
+          <h2>📷 Scan QR Siswa</h2>
+
+          <p>
+            Arahkan kamera ke QR Code siswa
+          </p>
+
+        </div>
+
+        <div id="reader"></div>
+
+        <div id="pesan"
+             class="pesan">
+
+          Menunggu kamera...
+
+        </div>
 
       </div>
 
 
-      <!-- Tempat kamera -->
+      <!-- =========================
+           DATA SISWA
+           ========================= -->
 
-      <div id="reader"></div>
+      <div id="dataSiswa">
 
+        <div class="judul">
 
-      <div id="pesan"
-           class="pesan">
+          <h2>👤 Data Peserta Didik</h2>
 
-        Menunggu kamera...
+        </div>
 
-      </div>
+        <hr>
 
+        <div id="nama"
+             class="nama">
+        </div>
 
-      <!-- Hasil siswa -->
+        <div id="idSiswa"
+             class="info">
+        </div>
 
-      <div id="hasil"
-           class="hasil">
+        <div id="kelas"
+             class="info">
+        </div>
 
-        <div class="siswa">
+        <div id="poinBox"
+             class="poin-box">
 
-          <div id="nama"
-               class="nama">
+          <div class="poin-label">
+            Poin Saat Ini
           </div>
 
-          <div id="idSiswa"
-               class="info">
+          <div id="poin"
+               class="poin-angka">
           </div>
 
-          <div id="kelas"
-               class="info">
+        </div>
+
+
+        <!-- =========================
+             FORM INPUT POIN
+             ========================= -->
+
+        <div id="formPoin">
+
+          <div class="judul-form">
+            Input Poin
           </div>
 
-          <div class="poin">
 
-            <div class="poin-label">
-              Poin Saat Ini
+          <!-- JENIS -->
+
+          <div class="jenis-container">
+
+            <button
+              id="btnPositif"
+              class="jenis-btn positif"
+              onclick="pilihJenis('Positif')">
+
+              🟢 Positif
+
+            </button>
+
+            <button
+              id="btnNegatif"
+              class="jenis-btn negatif"
+              onclick="pilihJenis('Negatif')">
+
+              🔴 Negatif
+
+            </button>
+
+          </div>
+
+
+          <!-- KATEGORI -->
+
+          <div class="field">
+
+            <label>
+              Kategori
+            </label>
+
+            <select
+              id="kategori"
+              onchange="kategoriBerubah()">
+
+              <option value="">
+                Pilih kategori
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- NAMA POIN -->
+
+          <div class="field">
+
+            <label>
+              Poin / Pelanggaran
+            </label>
+
+            <select
+              id="poinSelect"
+              onchange="poinBerubah()">
+
+              <option value="">
+                Pilih poin
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- NILAI -->
+
+          <div class="nilai-box">
+
+            <div class="nilai-label">
+              Nilai Poin
             </div>
 
-            <div id="poin"
-                 class="poin-angka">
+            <div id="nilai"
+                 class="nilai">
+
+              -
+
             </div>
 
           </div>
+
+
+          <!-- KETERANGAN -->
+
+          <div class="field">
+
+            <label>
+              Keterangan
+            </label>
+
+            <textarea
+              id="keterangan"
+              placeholder="Tambahkan keterangan jika diperlukan...">
+            </textarea>
+
+          </div>
+
+
+          <!-- SIMPAN -->
+
+          <button
+            id="btnSimpan"
+            class="tombol-simpan"
+            disabled
+            onclick="simpan()">
+
+            💾 SIMPAN POIN
+
+          </button>
+
+        </div>
+
+
+        <!-- KEMBALI -->
+
+        <div class="kembali">
+
+          <button onclick="kembaliScanner()">
+            ← Scan Siswa Lain
+          </button>
 
         </div>
 
@@ -206,12 +494,24 @@
 
 <script>
 
+
   // =====================================================
-  // URL WEB APP APPS SCRIPT KITA
+  // URL WEB APP APPS SCRIPT
   // =====================================================
 
   const APPS_SCRIPT_URL =
     "https://script.google.com/a/macros/guru.sd.belajar.id/s/AKfycbwzXoGGI6P1aRvAVVVVfvF6lHmTPgyk8gsjMl1irmWdCqsVY7FkcIL5wBRD1xXU3lOk/exec";
+
+
+  // =====================================================
+  // DATA SEMENTARA
+  // =====================================================
+
+  let siswaAktif = null;
+
+  let semuaPoin = [];
+
+  let jenisAktif = "";
 
 
   // =====================================================
@@ -221,12 +521,30 @@
   const pesan =
     document.getElementById("pesan");
 
-  const hasil =
-    document.getElementById("hasil");
+  const bagianScanner =
+    document.getElementById("bagianScanner");
+
+  const dataSiswa =
+    document.getElementById("dataSiswa");
+
+  const formPoin =
+    document.getElementById("formPoin");
+
+  const kategori =
+    document.getElementById("kategori");
+
+  const poinSelect =
+    document.getElementById("poinSelect");
+
+  const nilai =
+    document.getElementById("nilai");
+
+  const btnSimpan =
+    document.getElementById("btnSimpan");
 
 
   // =====================================================
-  // SAAT QR BERHASIL DIBACA
+  // QR BERHASIL DIBACA
   // =====================================================
 
   function qrBerhasil(qrText) {
@@ -236,20 +554,373 @@
     pesan.innerText =
       "QR terbaca: " + qrText;
 
-    // Ambil data siswa dari Apps Script
-
-    const url =
-      APPS_SCRIPT_URL +
-      "?qr=" +
-      encodeURIComponent(qrText);
-
-    window.location.href = url;
+    ambilDataSiswa(qrText);
 
   }
 
 
   // =====================================================
-  // SCANNER
+  // AMBIL DATA SISWA
+  // =====================================================
+
+  async function ambilDataSiswa(qrId) {
+
+    try {
+
+      pesan.innerText =
+        "Mengambil data siswa...";
+
+      const url =
+        APPS_SCRIPT_URL +
+        "?qr=" +
+        encodeURIComponent(qrId);
+
+      const response =
+        await fetch(url);
+
+      const siswa =
+        await response.json();
+
+      if (!siswa.ditemukan) {
+
+        pesan.innerText =
+          "❌ Siswa tidak ditemukan.";
+
+        return;
+
+      }
+
+
+      siswaAktif = siswa;
+
+
+      // Tampilkan data
+
+      document.getElementById("nama").innerText =
+        siswa.nama;
+
+      document.getElementById("idSiswa").innerText =
+        "ID Siswa: " + siswa.idSiswa;
+
+      document.getElementById("kelas").innerText =
+        "Kelas: " + siswa.kelas;
+
+      document.getElementById("poin").innerText =
+        siswa.poin;
+
+
+      // Tampilkan bagian siswa
+
+      bagianScanner.style.display =
+        "none";
+
+      dataSiswa.style.display =
+        "block";
+
+      formPoin.style.display =
+        "block";
+
+
+      // Reset form
+
+      resetForm();
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      pesan.innerText =
+        "❌ Gagal mengambil data siswa.";
+
+    }
+
+  }
+
+
+  // =====================================================
+  // PILIH JENIS
+  // =====================================================
+
+  async function pilihJenis(jenis) {
+
+    jenisAktif = jenis;
+
+
+    const btnPositif =
+      document.getElementById("btnPositif");
+
+    const btnNegatif =
+      document.getElementById("btnNegatif");
+
+
+    btnPositif.classList.remove(
+      "aktif-positif"
+    );
+
+    btnNegatif.classList.remove(
+      "aktif-negatif"
+    );
+
+
+    if (jenis === "Positif") {
+
+      btnPositif.classList.add(
+        "aktif-positif"
+      );
+
+    } else {
+
+      btnNegatif.classList.add(
+        "aktif-negatif"
+      );
+
+    }
+
+
+    kategori.innerHTML =
+      '<option value="">Memuat kategori...</option>';
+
+    poinSelect.innerHTML =
+      '<option value="">Pilih poin</option>';
+
+    nilai.innerText =
+      "-";
+
+
+    try {
+
+      const url =
+        APPS_SCRIPT_URL +
+        "?action=poin&jenis=" +
+        encodeURIComponent(jenis);
+
+
+      const response =
+        await fetch(url);
+
+
+      semuaPoin =
+        await response.json();
+
+
+      isiKategori();
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      kategori.innerHTML =
+        '<option value="">Gagal memuat kategori</option>';
+
+    }
+
+  }
+
+
+  // =====================================================
+  // ISI KATEGORI
+  // =====================================================
+
+  function isiKategori() {
+
+    kategori.innerHTML =
+      '<option value="">Pilih kategori</option>';
+
+
+    const daftarKategori =
+      [...new Set(
+        semuaPoin.map(
+          item => item.kategori
+        )
+      )];
+
+
+    daftarKategori.forEach(
+      function(namaKategori) {
+
+        const option =
+          document.createElement("option");
+
+        option.value =
+          namaKategori;
+
+        option.textContent =
+          namaKategori;
+
+        kategori.appendChild(option);
+
+      }
+    );
+
+  }
+
+
+  // =====================================================
+  // KATEGORI BERUBAH
+  // =====================================================
+
+  function kategoriBerubah() {
+
+    const kategoriDipilih =
+      kategori.value;
+
+
+    poinSelect.innerHTML =
+      '<option value="">Pilih poin</option>';
+
+    nilai.innerText =
+      "-";
+
+
+    if (!kategoriDipilih) {
+
+      return;
+
+    }
+
+
+    const daftarPoin =
+      semuaPoin.filter(
+        function(item) {
+
+          return item.kategori ===
+                 kategoriDipilih;
+
+        }
+      );
+
+
+    daftarPoin.forEach(
+      function(item) {
+
+        const option =
+          document.createElement("option");
+
+        option.value =
+          item.idPoin;
+
+        option.textContent =
+          item.namaPoin +
+          " (" +
+          item.nilai +
+          ")";
+
+        option.dataset.nilai =
+          item.nilai;
+
+        poinSelect.appendChild(option);
+
+      }
+    );
+
+  }
+
+
+  // =====================================================
+  // POIN BERUBAH
+  // =====================================================
+
+  function poinBerubah() {
+
+    const pilihan =
+      poinSelect.options[
+        poinSelect.selectedIndex
+      ];
+
+
+    if (!pilihan || !poinSelect.value) {
+
+      nilai.innerText =
+        "-";
+
+      btnSimpan.disabled =
+        true;
+
+      return;
+
+    }
+
+
+    nilai.innerText =
+      pilihan.dataset.nilai;
+
+
+    // Untuk tahap ini tombol tetap dinonaktifkan
+
+    btnSimpan.disabled =
+      true;
+
+  }
+
+
+  // =====================================================
+  // RESET FORM
+  // =====================================================
+
+  function resetForm() {
+
+    jenisAktif = "";
+
+    semuaPoin = [];
+
+    kategori.innerHTML =
+      '<option value="">Pilih kategori</option>';
+
+    poinSelect.innerHTML =
+      '<option value="">Pilih poin</option>';
+
+    nilai.innerText =
+      "-";
+
+    document.getElementById("keterangan").value =
+      "";
+
+    document.getElementById(
+      "btnPositif"
+    ).classList.remove(
+      "aktif-positif"
+    );
+
+    document.getElementById(
+      "btnNegatif"
+    ).classList.remove(
+      "aktif-negatif"
+    );
+
+    btnSimpan.disabled =
+      true;
+
+  }
+
+
+  // =====================================================
+  // KEMBALI KE SCANNER
+  // =====================================================
+
+  function kembaliScanner() {
+
+    location.reload();
+
+  }
+
+
+  // =====================================================
+  // SIMPAN
+  // =====================================================
+
+  function simpan() {
+
+    alert(
+      "Fitur simpan akan kita aktifkan pada tahap berikutnya."
+    );
+
+  }
+
+
+  // =====================================================
+  // START SCANNER
   // =====================================================
 
   const scanner =
@@ -258,6 +929,7 @@
       "reader",
 
       {
+
         fps: 10,
 
         qrbox: {
@@ -284,8 +956,8 @@
 
     function(error) {
 
-      // Error scan kecil seperti QR belum terbaca
-      // tidak perlu ditampilkan
+      // QR belum terbaca.
+      // Tidak perlu menampilkan error.
 
     }
 
