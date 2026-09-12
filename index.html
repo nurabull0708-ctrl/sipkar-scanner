@@ -200,7 +200,8 @@ function masukKeSIPKAR() {
   // Mulai kamera
 mulaiScanner();
 
-    // =====================================================
+    
+// =====================================================
 // LOGOUT
 // =====================================================
 
@@ -296,6 +297,17 @@ function cekLogin() {
 
 }
 
+
+// Cek apakah pengguna meminta logout melalui URL
+const parameterURL = new URLSearchParams(window.location.search);
+
+if (parameterURL.get("logout") === "1") {
+  localStorage.removeItem("sipkar_pengguna");
+  penggunaAktif = null;
+
+  // Bersihkan ?logout=1 dari alamat browser
+  history.replaceState({}, document.title, window.location.pathname);
+}
 
 cekLogin();
 
